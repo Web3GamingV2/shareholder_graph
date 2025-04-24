@@ -1,0 +1,22 @@
+{
+  "name": "shareholder_graph",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ shareholder_graph",
+    "create-local": "graph create --node http://localhost:8020/ shareholder_graph",
+    "remove-local": "graph remove --node http://localhost:8020/ shareholder_graph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 shareholder_graph",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.87.0",
+    "@graphprotocol/graph-ts": "0.32.0"
+  },
+  "devDependencies": {
+    "@graphql-tools/load-files": "^7.0.1",
+    "@graphql-tools/merge": "^9.0.24",
+    "matchstick-as": "0.5.0"
+  }
+}

@@ -1,0 +1,60 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ERC20PAT
+    network: sepolia
+    source:
+      address: "0xA51Ecf228F86195665c09a3fB621128F1CE57eF1" # proxy address
+      abi: ERC20PAT
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+         - AllowedRecipientsUpdated
+         - Approval
+         - Burn
+         - ContractUpgraded
+         - EIP712DomainChanged
+         - Initialized
+         - MintCapNumeratorChanged
+         - MintPerformed
+         - MultiSigWalletAdressChanged
+         - OwnershipTransferred
+         - Paused
+         - RedemptionPoolChanged
+         - Transfer
+         - Unpaused
+      abis:
+        - name: ERC20PAT
+          file: ./abis/ERC20PAT.json
+      eventHandlers:
+         # --- ERC20PAT Events ---
+        - event: AllowedRecipientsUpdated(indexed address,indexed address,bool)
+          handler: handleAllowedRecipientsUpdated
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Burn(uint256,uint256) # 参数名 _burnAmount, _totalSupply
+          handler: handleBurn
+        - event: ContractUpgraded(indexed address,indexed address)
+          handler: handleContractUpgraded
+        - event: MintCapNumeratorChanged(indexed address,uint256,uint256)
+          handler: handleMintCapNumeratorChanged
+        - event: MintPerformed(indexed address,uint256,uint256)
+          handler: handleMintPerformed
+        - event: MultiSigWalletAdressChanged(indexed address,indexed address,indexed address)
+          handler: handleMultiSigWalletAdressChanged
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/erc20-pat.ts
