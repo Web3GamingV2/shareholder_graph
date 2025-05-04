@@ -1,0 +1,102 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ERC20PAT
+    network: sepolia
+    source:
+      address: "0xA51Ecf228F86195665c09a3fB621128F1CE57eF1" # proxy address
+      abi: ERC20PAT
+      startBlock: 1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+         - AllowedRecipientsUpdated
+         - Approval
+         - Burn
+         - ContractUpgraded
+         - EIP712DomainChanged
+         - Initialized
+         - MintCapNumeratorChanged
+         - MintPerformed
+         - MultiSigWalletAdressChanged
+         - OwnershipTransferred
+         - Paused
+         - RedemptionPoolChanged
+         - Transfer
+         - Unpaused
+      abis:
+        - name: ERC20PAT
+          file: ./abis/ERC20PAT.json
+      eventHandlers:
+         # --- ERC20PAT Events ---
+        - event: AllowedRecipientsUpdated(indexed address,indexed address,bool)
+          handler: handleAllowedRecipientsUpdated
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: Burn(uint256,uint256) # 参数名 _burnAmount, _totalSupply
+          handler: handleBurn
+        - event: ContractUpgraded(indexed address,indexed address)
+          handler: handleContractUpgraded
+        - event: MintCapNumeratorChanged(indexed address,uint256,uint256)
+          handler: handleMintCapNumeratorChanged
+        - event: MintPerformed(indexed address,uint256,uint256)
+          handler: handleMintPerformed
+        - event: MultiSigWalletAdressChanged(indexed address,indexed address,indexed address)
+          handler: handleMultiSigWalletAdressChanged
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/erc20-pat.ts
+  - kind: ethereum/contract
+    name: InvestorSalePool # 数据源名称，可以自定义
+    network: mainnet # 请替换为您部署合约的网络名称 (e.g., sepolia, mainnet)
+    source:
+      address: "0xYourInvestorSalePoolContractAddress" # <--- 请替换为实际部署的 InvestorSalePool 合约地址
+      abi: ./abis/InvestorSalePool.json # ABI 名称，需要与 `abis` 部分定义的名称一致
+      startBlock: 0 # <--- 请替换为合约部署的区块号
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7 # 请根据您的 graph-cli 版本调整
+      language: wasm/assemblyscript
+      entities: # <--- 请根据您的 schema.graphql 定义实体名称
+        - PurchaseConfirmEvent
+        - TreasuryRatioUpdateEvent
+        - SaleStateUpdateEvent
+        - TokensReleasedEvent
+        - RedemptionRequestEvent
+        - RedemptionCompleteEvent
+        - RedemptionCancelEvent
+        - SubscriptionRequestEvent
+      abis:
+        - name: InvestorSalePool # ABI 名称
+          file: ./abis/InvestorSalePool.json # <--- 请确保 ABI 文件路径正确
+      eventHandlers:
+        - event: PurchaseConfirm(indexed address,uint256,uint256,address)
+          handler: handlePurchaseConfirm # <--- 请在 mapping.ts 中实现此处理函数
+        - event: TreasuryRatioUpdated(uint256,uint256)
+          handler: handleTreasuryRatioUpdated # <--- 请在 mapping.ts 中实现此处理函数
+        - event: SaleStateUpdated(bool)
+          handler: handleSaleStateUpdated # <--- 请在 mapping.ts 中实现此处理函数
+        - event: TokensReleased(indexed address,indexed address,uint256)
+          handler: handleTokensReleased # <--- 请在 mapping.ts 中实现此处理函数
+        - event: RedemptionRequested(indexed bytes32,indexed address,uint256,uint256,uint256)
+          handler: handleRedemptionRequested # <--- 请在 mapping.ts 中实现此处理函数
+        - event: RedemptionCompleted(indexed bytes32,indexed address,uint256,uint256)
+          handler: handleRedemptionCompleted # <--- 请在 mapping.ts 中实现此处理函数
+        - event: RedemptionCancelled(indexed bytes32,indexed address,uint256,uint256)
+          handler: handleRedemptionCancelled # <--- 请在 mapping.ts 中实现此处理函数
+        - event: SubscriptionRequestedByUsdt(indexed address,indexed uint256,uint256,uint256,uint256)
+          handler: handleSubscriptionRequestedByUsdt # <--- 请在 mapping.ts 中实现此处理函数
+      # 如果需要处理合约调用，可以在这里添加 callHandlers
+      file: ./src/investor-sale-pool.ts # <--- 请确保 mapping 文件路径正确 (通常在顶层 mapping 定义)

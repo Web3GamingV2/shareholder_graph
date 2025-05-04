@@ -1,0 +1,142 @@
+# ... existing code ...
+
+# --- ERC20PAT Events ---
+
+type AllowedRecipientsUpdated @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  from: Bytes! # address (indexed)
+  minter: Bytes! # address (indexed)
+  isAllowed: Boolean!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Approval @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  owner: Bytes! # address (indexed)
+  spender: Bytes! # address (indexed)
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Burn @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  burnAmount: BigInt! # uint256 (ABI name: _burnAmount)
+  totalSupplyAfter: BigInt! # uint256 (ABI name: _totalSupply)
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ContractUpgraded @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  from: Bytes! # address (indexed)
+  newContract: Bytes! # address (indexed)
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type EIP712DomainChanged @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Initialized @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  version: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MintCapNumeratorChanged @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  from: Bytes! # address (indexed)
+  previousMintCapNumerator: BigInt! # uint256
+  mintCapNumerator: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MintPerformed @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  recipient: Bytes! # address (indexed)
+  amount: BigInt! # uint256
+  newTotalSupply: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MultiSigWalletAdressChanged @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  from: Bytes! # address (indexed)
+  oldAddr: Bytes! # address (indexed)
+  newAddr: Bytes! # address (indexed)
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  previousOwner: Bytes! # address (indexed)
+  newOwner: Bytes! # address (indexed)
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Paused @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RedemptionPoolChanged @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  from: Bytes! # address (indexed)
+  oldPool: Bytes! # address (indexed)
+  newPool: Bytes! # address (indexed)
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  from: Bytes! # address (indexed)
+  to: Bytes! # address (indexed)
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Unpaused @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+# 注意：此 Upgraded 类型对应 ERC20PAT ABI 中的 Upgraded 事件
+# 如果你已经在处理 ERC1967Proxy 的 Upgraded 事件，请考虑是否需要这个
+# 或者是否需要合并/区分处理逻辑
+type PatUpgraded @entity(immutable: true) { # 使用不同名称 PatUpgraded
+  id: Bytes! # transaction hash + log index
+  implementation: Bytes! # address (indexed)
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
