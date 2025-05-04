@@ -60,11 +60,11 @@ dataSources:
       file: ./src/erc20-pat.ts
   - kind: ethereum/contract
     name: InvestorSalePool # 数据源名称，可以自定义
-    network: mainnet # 请替换为您部署合约的网络名称 (e.g., sepolia, mainnet)
+    network: sepolia # 请替换为您部署合约的网络名称 (e.g., sepolia, mainnet)
     source:
-      address: "0xYourInvestorSalePoolContractAddress" # <--- 请替换为实际部署的 InvestorSalePool 合约地址
-      abi: ./abis/InvestorSalePool.json # ABI 名称，需要与 `abis` 部分定义的名称一致
-      startBlock: 0 # <--- 请替换为合约部署的区块号
+      address: "0xC711619c140663737aDe3b54A4B4974C0FC58D8A" # <--- 请替换为实际部署的 InvestorSalePool 合约地址
+      abi: InvestorSalePool # ABI 名称，需要与 `abis` 部分定义的名称一致
+      startBlock: 1 # <--- 请替换为合约部署的区块号
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7 # 请根据您的 graph-cli 版本调整

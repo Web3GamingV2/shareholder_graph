@@ -2,8 +2,9 @@
   "name": "shareholder_graph",
   "license": "UNLICENSED",
   "scripts": {
-    "codegen": "graph codegen",
-    "build": "graph build",
+    "merge-schemas": "node scripts/merge-schemas.js",
+    "codegen": "npm run merge-schemas && graph codegen",
+    "build": "npm run codegen && graph build",
     "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ shareholder_graph",
     "create-local": "graph create --node http://localhost:8020/ shareholder_graph",
     "remove-local": "graph remove --node http://localhost:8020/ shareholder_graph",
@@ -17,6 +18,7 @@
   "devDependencies": {
     "@graphql-tools/load-files": "^7.0.1",
     "@graphql-tools/merge": "^9.0.24",
+    "graphql": "^16.11.0",
     "matchstick-as": "0.5.0"
   }
 }

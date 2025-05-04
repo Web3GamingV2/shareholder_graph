@@ -1,0 +1,83 @@
+type PurchaseConfirmEvent @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  user: Bytes! # address indexed user
+  usdtAmount: BigInt! # uint256 usdtAmount
+  patAmount: BigInt! # uint256 patAmount
+  vestingWallet: Bytes! # address vestingWallet
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TreasuryRatioUpdateEvent @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  oldRatio: BigInt! # uint256 oldRatio
+  newRatio: BigInt! # uint256 newRatio
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SaleStateUpdateEvent @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  isActive: Boolean! # bool isActive
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TokensReleasedEvent @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  user: Bytes! # address indexed user
+  vestingWallet: Bytes! # address indexed vestingWallet
+  releasedAmount: BigInt! # uint256 releasedAmount
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RedemptionRequestEvent @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  requestId: Bytes! # bytes32 indexed requestId
+  user: Bytes! # address indexed user
+  patAmount: BigInt! # uint256 patAmount
+  usdtAmount: BigInt! # uint256 usdtAmount
+  purchaseIndex: BigInt! # uint256 purchaseIndex
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RedemptionCompleteEvent @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  requestId: Bytes! # bytes32 indexed requestId
+  user: Bytes! # address indexed user
+  patAmount: BigInt! # uint256 patAmount
+  usdtAmount: BigInt! # uint256 usdtAmount
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RedemptionCancelEvent @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  requestId: Bytes! # bytes32 indexed requestId
+  user: Bytes! # address indexed user
+  patAmount: BigInt! # uint256 patAmount
+  usdtAmount: BigInt! # uint256 usdtAmount
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubscriptionRequestEvent @entity(immutable: true) {
+  id: Bytes! # transaction hash + log index
+  user: Bytes! # address indexed user
+  subscriptionId: BigInt! # uint256 indexed subscriptionId
+  patAmount: BigInt! # uint256 patAmount
+  usdtAmount: BigInt! # uint256 usdtAmount
+  expiryTimestamp: BigInt! # uint256 expiryTimestamp
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

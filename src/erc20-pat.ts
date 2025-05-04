@@ -1,4 +1,3 @@
-import { Bytes, ethereum } from "@graphprotocol/graph-ts"
 import {
   // --- Standard Events ---
   Transfer as TransferEvent, // 重命名导入以避免与实体名称冲突
@@ -38,10 +37,7 @@ import { // <<< 修改：导入你在 schema.graphql 中定义的实际实体名
   // PatUpgraded // 如果定义了对应实体
 } from "../generated/schema"
 
-// --- Helper Function for ID ---
-function generateEventId(event: ethereum.Event): Bytes {
-  return event.transaction.hash.concatI32(event.logIndex.toI32())
-}
+import { generateEventId } from "./utils";
 
 // --- 处理标准 ERC20 事件 ---
 

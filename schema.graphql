@@ -1,11 +1,7 @@
-# ... existing code ...
-
-# --- ERC20PAT Events ---
-
 type AllowedRecipientsUpdated @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  from: Bytes! # address (indexed)
-  minter: Bytes! # address (indexed)
+  id: Bytes!
+  from: Bytes!
+  minter: Bytes!
   isAllowed: Boolean!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
@@ -13,129 +9,210 @@ type AllowedRecipientsUpdated @entity(immutable: true) {
 }
 
 type Approval @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  owner: Bytes! # address (indexed)
-  spender: Bytes! # address (indexed)
-  value: BigInt! # uint256
+  id: Bytes!
+  owner: Bytes!
+  spender: Bytes!
+  value: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type Burn @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  burnAmount: BigInt! # uint256 (ABI name: _burnAmount)
-  totalSupplyAfter: BigInt! # uint256 (ABI name: _totalSupply)
+  id: Bytes!
+  burnAmount: BigInt!
+  totalSupplyAfter: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type ContractUpgraded @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  from: Bytes! # address (indexed)
-  newContract: Bytes! # address (indexed)
+  id: Bytes!
+  from: Bytes!
+  newContract: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type EIP712DomainChanged @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
+  id: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type Initialized @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  version: BigInt! # uint64
+  id: Bytes!
+  version: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type MintCapNumeratorChanged @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  from: Bytes! # address (indexed)
-  previousMintCapNumerator: BigInt! # uint256
-  mintCapNumerator: BigInt! # uint256
+  id: Bytes!
+  from: Bytes!
+  previousMintCapNumerator: BigInt!
+  mintCapNumerator: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type MintPerformed @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  recipient: Bytes! # address (indexed)
-  amount: BigInt! # uint256
-  newTotalSupply: BigInt! # uint256
+  id: Bytes!
+  recipient: Bytes!
+  amount: BigInt!
+  newTotalSupply: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type MultiSigWalletAdressChanged @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  from: Bytes! # address (indexed)
-  oldAddr: Bytes! # address (indexed)
-  newAddr: Bytes! # address (indexed)
+  id: Bytes!
+  from: Bytes!
+  oldAddr: Bytes!
+  newAddr: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type OwnershipTransferred @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  previousOwner: Bytes! # address (indexed)
-  newOwner: Bytes! # address (indexed)
+  id: Bytes!
+  previousOwner: Bytes!
+  newOwner: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type Paused @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  account: Bytes! # address
+  id: Bytes!
+  account: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type RedemptionPoolChanged @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  from: Bytes! # address (indexed)
-  oldPool: Bytes! # address (indexed)
-  newPool: Bytes! # address (indexed)
+  id: Bytes!
+  from: Bytes!
+  oldPool: Bytes!
+  newPool: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type Transfer @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  from: Bytes! # address (indexed)
-  to: Bytes! # address (indexed)
-  value: BigInt! # uint256
+  id: Bytes!
+  from: Bytes!
+  to: Bytes!
+  value: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
 type Unpaused @entity(immutable: true) {
-  id: Bytes! # transaction hash + log index
-  account: Bytes! # address
+  id: Bytes!
+  account: Bytes!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-# 注意：此 Upgraded 类型对应 ERC20PAT ABI 中的 Upgraded 事件
-# 如果你已经在处理 ERC1967Proxy 的 Upgraded 事件，请考虑是否需要这个
-# 或者是否需要合并/区分处理逻辑
-type PatUpgraded @entity(immutable: true) { # 使用不同名称 PatUpgraded
-  id: Bytes! # transaction hash + log index
-  implementation: Bytes! # address (indexed)
+type PatUpgraded @entity(immutable: true) {
+  id: Bytes!
+  implementation: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type PurchaseConfirmEvent @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes!
+  usdtAmount: BigInt!
+  patAmount: BigInt!
+  vestingWallet: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TreasuryRatioUpdateEvent @entity(immutable: true) {
+  id: Bytes!
+  oldRatio: BigInt!
+  newRatio: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SaleStateUpdateEvent @entity(immutable: true) {
+  id: Bytes!
+  isActive: Boolean!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TokensReleasedEvent @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes!
+  vestingWallet: Bytes!
+  releasedAmount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RedemptionRequestEvent @entity(immutable: true) {
+  id: Bytes!
+  requestId: Bytes!
+  user: Bytes!
+  patAmount: BigInt!
+  usdtAmount: BigInt!
+  purchaseIndex: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RedemptionCompleteEvent @entity(immutable: true) {
+  id: Bytes!
+  requestId: Bytes!
+  user: Bytes!
+  patAmount: BigInt!
+  usdtAmount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RedemptionCancelEvent @entity(immutable: true) {
+  id: Bytes!
+  requestId: Bytes!
+  user: Bytes!
+  patAmount: BigInt!
+  usdtAmount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubscriptionRequestEvent @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes!
+  subscriptionId: BigInt!
+  patAmount: BigInt!
+  usdtAmount: BigInt!
+  expiryTimestamp: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

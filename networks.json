@@ -3,6 +3,10 @@
     "ERC1967Proxy": {
       "address": "0xA51Ecf228F86195665c09a3fB621128F1CE57eF1",
       "startBlock": 8176644
+    },
+    "InvestorSalePool": { 
+      "address": "0xC711619c140663737aDe3b54A4B4974C0FC58D8A",
+      "startBlock": 8185195
     }
   }
 }
